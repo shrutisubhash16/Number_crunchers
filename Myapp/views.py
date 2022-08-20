@@ -37,15 +37,21 @@ def postsignIn_admin(request):
     email=request.POST.get('email')
     passw = request.POST.get("pass")
 
-    #a_email=request.POST.get('a_email')
-    #a_passw = request.POST.get("a_pass")
-    #print(a_email)
-    #print(a_passw)
+    users = database.child(0).child('Details').get()
+    li = []
+    #https://www.youtube.com/watch?v=sVwWEoDa_uY
+    for user in users.each():
+        print(user.val())
+        li.append(user.val())
+    context = {
+        "e" : email,
+        "d" : li
+    }
     
     try:
         #user = authe.sign_in_with_email_and_password(email,passw)
         if (email == "shruti@gmail.com") and (passw == "Shruti"):
-            return render(request, "a_wel.html",{"e":email})
+            return render(request, "a_wel.html", context)
     except:
         message="invalid credentials"
         return render(request,"admin_signIn.html",{"messg":message})
@@ -148,31 +154,24 @@ def postReset(request):
         message  = "Something went wrong, Please check the email you provided is registered or not"
         return render(request, "Reset.html", {"msg":message})
 
-'''
+
 class ChartData(APIView):
     authentication_classes = []
     permission_classes = []
-    def get(self, request, format = None):
+    
+    
 
-        name = database.child('number_plate_data').get()
+    def get(self, request, format = None):
         la = []
         da = []
-        li = []
-        for i in range(1,40):
+        for i in range(1,10):
             m = str(i)
-            framework = database.child(m).child('BookingID').get().val()
-            frame = database.child(m).child('KM').get().val()
+            framework = database.child(0).child('Details').child(m).child('vehicle_no').get().val()
+            frame = database.child(0).child('Details').child(m).child('KM').get().val()
             la.append(framework)
             da.append(frame)
-        for user in name.each():
-            #print(user.val())
-            li.append(user.val())
-
-        for i in range(len(li)):
-            la.append(li[i]['Number_Plate'])
-            da.append(li[i]['Timestamp'][:10])
-
-        
+        print(la)
+        print(da)
         labels = la
         chartLabel = "Distance in KM"
         chartdata = da
@@ -181,4 +180,24 @@ class ChartData(APIView):
                      "chartLabel":chartLabel,
                      "chartdata":chartdata,
              }
-        return Response(data)'''
+             
+        '''
+
+        labels = [
+            'January',
+            'February', 
+            'March', 
+            'April', 
+            'May', 
+            'June', 
+            'July'
+            ]
+        chartLabel = "my data"
+        #labels = ['2021-11-06 23:39:30', '2021-11-07 01:00:28', '2021-11-07 09:00:28', '2021-10-07 09:00:28', '2021-01-17 09:00:28', '2022-10-09 09:00:28', '2020-11-07 09:00:28']
+        chartdata = [0, 10, 5, 2, 20, 30, 45]
+        data ={
+                     "labels":labels,
+                     "chartLabel":chartLabel,
+                     "chartdata":chartdata,
+             }'''
+        return Response(data)

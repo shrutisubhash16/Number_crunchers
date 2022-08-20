@@ -22,7 +22,7 @@ urlpatterns = [
     path('',views.home,name="home"),
     path('signIn', views.signIn,name="signIn"),
     path('admin_signIn', views.admin_signIn,name="admin_signIn"),
-    #path('api', views.ChartData.as_view()),
+    path('api', views.ChartData.as_view()),
     path('postsignIn_admin/', views.postsignIn_admin),
     path('postsignIn/', views.postsignIn),
     path('postsignUp/', views.postsignUp, name="signup"),
