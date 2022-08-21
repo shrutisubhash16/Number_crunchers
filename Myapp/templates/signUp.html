@@ -1,4 +1,9 @@
 {% load static %}
+{%if msg%}
+    <script>
+        window.alert('{{msg}}');
+    </script>
+{% endif%}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -58,7 +63,7 @@
           <div class = "nav-links" id = "navLinks">
             <i class="fa fa-times" onclick="hideMenu()" title = "Edit"></i>
               <ul class="navibar">
-                <li class="active"><a onclick="location.href='{% url 'signIn' %} '">Home</a></li>
+                <li class="active"><a onclick="location.href='{% url 'home' %} '">Home</a></li>
                 <li><a onclick="location.href='{% url 'signIn' %} '">Login</a></li>
                 <li><a onclick="location.href='{% url 'home' %} '">Features</a></li>
                 <li><a onclick="location.href='{% url 'home' %} '">Contact Us</a></li>
@@ -71,7 +76,7 @@
       </nav>
       </div>
 
-      <h2 class="login-heading">Register to get started!</h2>
+      <h2 class="login-heading">Add User</h2>
 
     <form action="/postsignUp/" method="post">
         {% csrf_token %}

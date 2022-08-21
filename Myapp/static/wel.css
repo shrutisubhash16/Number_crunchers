@@ -274,6 +274,11 @@ a.article:hover {
     }
 }
 
+.graph{
+    position: absolute;
+    bottom: 500px;
+}
+
 /* table*/
 table{
     table-layout: fixed;

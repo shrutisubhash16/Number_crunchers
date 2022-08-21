@@ -1,7 +1,7 @@
 {% load static %}
 {% if message %}
 <script>
-    alert('{{ message }}');
+    alert('{{ messg }}');
 </script>
 {% endif %}
 <!DOCTYPE html>
@@ -78,7 +78,7 @@
 
 
 
-    <h2 class="login-heading">Login</h2>
+    <h2 class="login-heading">Admin Login</h2>
     <form action="/postsignIn_admin/" method="post">
         {% csrf_token %}
         <div class="imgcontainer">
