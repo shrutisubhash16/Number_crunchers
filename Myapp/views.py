@@ -99,14 +99,19 @@ def comparison(request):
     for i in last_Data.each():
         last_rfid.append(i.val())
 
+    print(li)
+    print(data)
+    print(last_rfid)
+
 
     
     
     perc = round(li[-1],2)
     extract = data[-1]['Number_Plate']
     rfid = last_rfid[-1]
+    print(perc)
 
-    original = database.child('rfid_data').child("-N9v0HDas-iTXT-9BSyK").child(rfid).get().val()
+    original = database.child('rfid_data').child("-NA3ZgJ5oFLd0PJy3-jW").child(rfid).get().val()
     
 
 
