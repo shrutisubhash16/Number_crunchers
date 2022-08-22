@@ -51,8 +51,8 @@
       </div>
     <div class="weight">
         <h1 id="weight"></h1>
-        <h4 style="text-align: center;">Time</h4>
-        <h1 id ="time"></h1>
+        <!--<h4 style="text-align: center;">Time</h4>
+        <h1 id ="time"></h1>-->
 
         <img class="img" src="{% static 'images/weight.jpg' %}">
     </div>
@@ -71,9 +71,9 @@
         success: function(response){
           console.log(response.users.time);
           weight = response.users.weight
-          if(weight<-0.00001){
+          /*if(weight<-0.00001){
             window.alert("Weight below thershold"+weight)
-          }
+          }*/
           $("#weight").text(response.users.weight);
           $("#time").text(response.users.time);
         },
@@ -81,7 +81,7 @@
           alert("No data")
         }
       });
-    },1000);
+    },500);
   });
   
   </script>

@@ -10,14 +10,14 @@ from rest_framework.response import Response
 
 
 config = {
-    "apiKey": "AIzaSyDYC_y6NxtMLizSN4oD46vC8PG_DLuE9DQ",
-    "authDomain": "fir-hostingninja-992b6.firebaseapp.com",
-    "databaseURL": "https://fir-hostingninja-992b6-default-rtdb.firebaseio.com",
-    "projectId": "fir-hostingninja-992b6",
-    "storageBucket": "fir-hostingninja-992b6.appspot.com",
-    "messagingSenderId": "171937270816",
-    "appId": "1:171937270816:web:8117d5d5bfc4222b910045",
-    "measurementId": "G-J5JQ9VCB1R"
+  "apiKey": "AIzaSyBEuJVrV_FgvVU4VbuzEt_t8FR7THa6tuw",
+  "authDomain": "nc740-number-crunchers.firebaseapp.com",
+  "databaseURL": "https://nc740-number-crunchers-default-rtdb.firebaseio.com",
+  "projectId": "nc740-number-crunchers",
+  "storageBucket": "nc740-number-crunchers.appspot.com",
+  "messagingSenderId": "126751447418",
+  "appId": "1:126751447418:web:579b3269eb42493d6d1ec3",
+  "measurementId": "G-365FVJNYMY"
 }
 # Initialising database,auth and firebase for further use
 firebase=pyrebase.initialize_app(config)
@@ -165,6 +165,7 @@ def getUsers(request):
     data = database.child('Weights').get()
     weight = []
     time = []
+    print(data)
 
     for i in data.each():
         weight.append(i.val())
