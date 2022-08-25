@@ -1,8 +1,5 @@
 from django.shortcuts import render
-import pyrebase
-
-from django.views.generic import View
-   
+import pyrebase  
 from rest_framework.views import APIView
 from rest_framework.response import Response
  
