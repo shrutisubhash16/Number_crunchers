@@ -3,7 +3,7 @@ import pyrebase
 from rest_framework.views import APIView
 from rest_framework.response import Response
  
- 
+
 
 
 config = {
@@ -12,7 +12,7 @@ config = {
   "databaseURL": "https://nc740-number-crunchers-default-rtdb.firebaseio.com",
   "projectId": "nc740-number-crunchers",
   "storageBucket": "nc740-number-crunchers.appspot.com",
-  "messagingSenderId": "126751447418",
+  "messagfingSenderId": "126751447418",
   "appId": "1:126751447418:web:579b3269eb42493d6d1ec3",
   "measurementId": "G-365FVJNYMY"
 }
@@ -56,7 +56,8 @@ def postsignIn_admin(request):
     return render(request,"admin_signIn.html",{"messg":message})
     #print(user['idToken'])
     
- 
+
+
 def postsignIn(request):
     email=request.POST.get('email')
     passw = request.POST.get("pass")
@@ -65,6 +66,8 @@ def postsignIn(request):
     #a_passw = request.POST.get("a_pass")
     #print(a_email)
     #print(a_passw)
+    
+    
     
     try:
         user = authe.sign_in_with_email_and_password(email,passw)
@@ -79,9 +82,6 @@ def comparison(request):
     num_perc = database.child('number_plate_percentage').get()
     num_data = database.child('number_plate_data').get()
     last_Data = database.child('last_detected_RFID').get()
-    
-
-    #print(original)
 
     li = []
     data = []
@@ -96,29 +96,63 @@ def comparison(request):
     for i in last_Data.each():
         last_rfid.append(i.val())
 
-    print(li)
-    print(data)
-    print(last_rfid)
-
-
     
     
     perc = round(li[-1],2)
     extract = data[-1]['Number_Plate']
     rfid = last_rfid[-1]
-    print(perc)
+    #print(perc)
 
-    original = database.child('rfid_data').child("-NA3ZgJ5oFLd0PJy3-jW").child(rfid).get().val()
+    '''data = {
+        "work":"w",
+        "progress":"p"
+    }
+
+    database.child('rfid_data').set(data)
+    a = database.child('rfid_data').get().val()
+    print(a)
+'''
+    original = database.child('rfid_data').child("-NAN6c7sV9Qj9s2d9g__").child(rfid).get().val()
+    rfid = database.child('Timestamp ').get()
+    print(rfid)
+
+    rfid_tag_value = []
+    rfid_time = []
+    for i in rfid.each():
+        rfid_tag_value.append(i.key())
+
+    for i in rfid.each():
+        rfid_time.append(i.val())
+
     
+    time_stamp = []
 
+    for i in rfid_time:
+        rfid_tag=[]
+        for keys in i:
+            #print(i[keys])
+            rfid_tag.append(i[keys])
+        time_stamp.append(rfid_tag)
+        
+    print(time_stamp)
+
+    #print(rfid_time)
+    #print(rfid_tag_value)
+
+    #print(rfid_time)
+    
+    
 
     context={
         "perc": perc,
         "extract":extract,
-        "original": original
+        "original": original,
+        "rfid":rfid
 
     }
+
     return render(request,"compare.html",context)
+
 
 
 def logout(request):
@@ -179,6 +213,36 @@ def getUsers(request):
     }
     return JsonResponse({"users":context})
 
+def getData(request):
+    rfid = database.child('Timestamp ').get()
+    print(rfid)
+    rfid_tag_value = []
+    rfid_time = []
+    for i in rfid.each():
+        rfid_tag_value.append(i.key())
+
+    for i in rfid.each():
+        rfid_time.append(i.val())
+
+    time_stamp = []
+
+    for i in rfid_time:
+        rfid_tag=[]
+        for keys in i:
+            #print(i[keys])
+            rfid_tag.append(i[keys])
+        time_stamp.append(rfid_tag)
+        
+    print(time_stamp)
+
+    context={
+        "rfid_tag_value":rfid_tag_value,
+        "time_stamp": time_stamp
+    }
+
+    return JsonResponse({"users":context})
+
+
 
 class ChartData(APIView):
     authentication_classes = []
@@ -206,23 +270,4 @@ class ChartData(APIView):
                      "chartdata":chartdata,
              }
              
-        '''
-
-        labels = [
-            'January',
-            'February', 
-            'March', 
-            'April', 
-            'May', 
-            'June', 
-            'July'
-            ]
-        chartLabel = "my data"
-        #labels = ['2021-11-06 23:39:30', '2021-11-07 01:00:28', '2021-11-07 09:00:28', '2021-10-07 09:00:28', '2021-01-17 09:00:28', '2022-10-09 09:00:28', '2020-11-07 09:00:28']
-        chartdata = [0, 10, 5, 2, 20, 30, 45]
-        data ={
-                     "labels":labels,
-                     "chartLabel":chartLabel,
-                     "chartdata":chartdata,
-             }'''
         return Response(data)

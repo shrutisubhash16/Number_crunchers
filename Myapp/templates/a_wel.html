@@ -205,7 +205,9 @@
                     <canvas id="myChartBar"></canvas>
                 </div>
             </div>
-
+            <br>
+            <h2 style="text-align: center;">Load Monitor</h2>
+            <div id="chartDiv" style="width:80%; height:500px; margin:0 auto;"></div>
             <br><br>
             <h4 style="text-align: center;">Trucks Data</h4>
             <table class="table table-dark table-striped scrolldown">
@@ -421,6 +423,40 @@
                 }
             ]
         });
+
+        JSC.Chart('chartDiv', {
+	debug: true, 
+	legend_position: 'bottom right', 
+	type: 'area spline', 
+	defaultSeries: { shape_opacity: 0.4 }, 
+	xAxis: { 
+	  crosshair_enabled: true, 
+	}, 
+	title_label_text: 'Weights',
+	title_label_color: "red",
+  //Hex color values
+  yAxis_label_color: "#FF0000",
+  //rgb(red,green,blue) to specify RGB values individually.
+  yAxis_defaultTick_label_color: "rgb(20,20,20)",
+  //rgba(red,green,blue,alpha) to specify RGB values individually and alpha from 0 (transparent) to 1 (opaque).
+  legend_defaultEntry_style_color: "rgba(20,20,20,.2)",
+	//yAxis: { formatString: 'c' },
+	series: [
+	{
+			name: 'Anna',
+			points: [
+            {x: '12/08/2021', y: 30},
+				{x: '23/08/2021', y: 22},
+				{x: '19/10/2021', y: 38},
+				{x: '21/09/2021', y: 52},
+				{x: '12/11/2021', y: 39},
+				{x: '02/08/2021', y: 64},
+				{x: '12/04/2021', y: 20},
+				{x: '22/11/2021', y: 82},
+			]
+		}
+	]
+});
 
     </script>
 
